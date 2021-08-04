@@ -81,12 +81,28 @@ const oneLinerJoke = require('one-liner-joke');
 //    }
 //    managingJokes();
 
-//// ~~~~~~~~~~~~~~~~~~~~~~~~~~~Script Task 3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//// ~~~~~~~~~~~~~~~~~~~~~~~~~~~Script Task 3-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-var oldPath = path.join(__dirname,'/files_to_move/file.txt');
-var newPath = path.join(__dirname,'/moved_files/file.txt');
+// function file_mover(){
+  // Set the path for the folders
+  const oldPath = 'files_to_move';
+  const newPath = 'moved_files';
+  let moveFile = fs.readdirSync(oldPath);
 
-fs.rename(oldPath, newPath, function (err) {
-  if (err) throw err
-  console.log('Successfully renamed - AKA moved!')
-})
+  // move from folders
+  for(let i = 0; i <moveFile.length; i++){
+    fs.renameSync(`${oldPath}/${moveFile[i]}`,`${newPath}/${moveFile[i]}`,
+    (err) => {
+    if(err) throw err;
+  })
+      // print to the names to file
+      fs.appendFile('moved_files.txt',`${moveFile[i]} \n`,
+      (err) => {
+        if(err) throw err;
+        //
+    })
+    
+    console.log(`the name of the file/folder is : ${moveFile[i]}`);
+
+  };
+ 
