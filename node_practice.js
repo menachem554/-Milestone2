@@ -81,7 +81,7 @@ const oneLinerJoke = require('one-liner-joke');
 //    }
 //    managingJokes();
 
-//// ~~~~~~~~~~~~~~~~~~~~~~~~~~~Script Task 1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//// ~~~~~~~~~~~~~~~~~~~~~~~~~~~Script Task 3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 var oldPath = path.join(__dirname,'/files_to_move/file.txt');
 var newPath = path.join(__dirname,'/moved_files/file.txt');
