@@ -11,7 +11,6 @@ const oneLinerJoke = require('one-liner-joke');
 // const parameters = process.argv.slice(2);
 // createFile(parameters[0],parameters[1]);
 
-
 // // create and write to file (and reed from it)
 // function createFile(numOfFile,amountOfWords){
 //     for(let i = 0; i<numOfFile; i++){
@@ -84,8 +83,8 @@ const oneLinerJoke = require('one-liner-joke');
 
 //// ~~~~~~~~~~~~~~~~~~~~~~~~~~~Script Task 1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-var oldPath = path.join(__dirname,'/files_to_move/file.txt')
-var newPath = path.join(__dirname,'/moved_files/file.txt')
+var oldPath = path.join(__dirname,'/files_to_move/file.txt');
+var newPath = path.join(__dirname,'/moved_files/file.txt');
 
 fs.rename(oldPath, newPath, function (err) {
   if (err) throw err
