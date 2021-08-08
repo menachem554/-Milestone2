@@ -1,9 +1,22 @@
 {
   "dependencies": {
+    "@octokit/auth-basic": "^1.4.8",
+    "@octokit/rest": "^18.9.0",
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "configstore": "^6.0.0",
     "dotenv": "^10.0.0",
+    "figlet": "^1.5.0",
+    "inquirer": "^8.1.2",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.5",
     "one-liner-joke": "^1.2.2",
     "prompt": "^1.1.0",
     "prompt-sync": "^4.2.0",
-    "random-words": "^1.1.1"
+    "random-words": "^1.1.1",
+    "readline-sync": "^1.4.10",
+    "simple-git": "^2.42.0",
+    "touch": "^3.1.0"
   }
 }

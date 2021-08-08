@@ -5,7 +5,9 @@ const randomWords = require('random-words');
 require('dotenv').config();
 const oneLinerJoke = require('one-liner-joke');
 // const readline = require("readline");
-const prompt = require('prompt-sync')();
+const rs =require('readline-sync');
+const chalk = require('chalk');
+const { loadFont } = require('figlet');
 
 // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Script Task 1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -105,71 +107,206 @@ const prompt = require('prompt-sync')();
 //     })
 
 //     console.log(`the name of the file/folder is : ${moveFile[i]}`);
+//     moveFile.length = 0;
 
 //   };
 // }
+// setInterval(file_mover,1000)
 
 // file_mover();
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SAcript Task 4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// function deleteFileByName(){
 
-//  console.log(` enter the name of the file:`);
-//  name1 = prompt('');
+// Check if manipulations can be performed
+function checkContent(input){
+  const contentInFolder = fs.readdirSync(path.join(__dirname,'./task4'));
+  if (!contentInFolder.includes(input)) {
+    console.log(chalk.red('Error The file or folder you want to manipulate does not exist!'));
+  }
+  else{
+    return true;
 
-//   fs.unlinkSync(path.join(__dirname,'./task4/',name1));
-//   console.log(`${name1} was delete Successfully`); 
-// }
+  }
+}
 
-// deleteFileByName();
+// option 1
+function deleteFileByName(){
+ let dFile = rs.question(chalk.cyan('Enter the name of the file:'));
 
-// function createFileByName(){
-//  console.log(` enter the name of the file:`);
-//  name1 = prompt('');
+ if (checkContent(dFile) == true) {
+  fs.unlinkSync(path.join(__dirname,'./task4/',dFile));
+  console.log(chalk.green(`${dFile} was delete Successfully`));
+  
+}
+ 
+ }
 
-//   fs.writeFile(path.join(__dirname,'./task4/',name1),'', (err) => {
-//     if (err) throw  err = 'was not able to create the file';
-//     console.log(`${name1} was createSuccessfully`); 
-//   });
-    
-// }
+// option 2
+function createFileByName(){
+  let cFile = rs.question(chalk.cyan('Enter the name of the file:'));
 
-// createFileByName();
+  if (checkContent(cFile) == true){
+    console.log(chalk.red('Eroor The file already exists'));
+  }
+  else{
+    fs.writeFile(path.join(__dirname,'./task4/',cFile),'', (err) => {
+      if (err) throw  err = 'was not able to create the file';
+     
+    });
+    console.log(chalk.green(`${cFile} was create Successfully`)); 
+  }    
+}
 
-// function editFileByName(){
-// const nameOfFiles = fs.readdirSync(path.join(__dirname,'./task4'));
+// option 3
+function editFileByName(){
+let cFile = rs.question(chalk.cyan('Enter the name of the file:'));
+let cFileChange = rs.question(chalk.cyan('Enter your changes:'));
 
-//  console.log(` Enter the name of file that you want to edit:`);
-//  name1 = prompt('');
+ // check that the file exsits
+ if (checkContent(cFile) == true){
+   fs.appendFile(`./task4/${cFile}`,`${cFileChange}\n`,(err) => {
+     if(err) throw err;
+     
+   })
+   console.log(chalk.green('the change was add to the file'));
+ }
+}
 
-//  console.log('Enter your change:');
-//  edit = prompt('');
-
-//  // check that the file exsits
-//  if (nameOfFiles.includes(name1)){
-//    fs.appendFile(`./task4/${name1}`,edit,(err) => {
-//      if(err) throw err;
-//      console.log('the change was add to the file');
-//    })
-//  }
-//  else{
-//    console.log('Error! the file that you want to change not exsits :(');
-//  }
-//  }
-// editFileByName();
-
+// option 4
 function createFolderByName(){
- console.log(` enter the name of the folder:`);
- nameFolder = prompt('');
+  let cFolder = rs.question(chalk.cyan('Enter the name of the Folder:'));
 
-  fs.mkdir(pat nameFolder, (err) => {
+  fs.mkdir(`./task4/${cFolder}`, {recursive: true}, (err) => {
     if (err) throw  err = 'was not able to create the folder';
-    console.log(`${nameFolder} was createSuccessfully`); 
+   
   });
+  console.log(chalk.green(`${cFolder } was createSuccessfully`)); 
     
 }
 
-createFolderByName();
+// option 5
+function deleteFolderByName(){
+  let dFolder = rs.question(chalk.cyan('Enter the name of the Folder:'));
+
+ // check that the folder exsits
+ if (checkContent(dFolder) == true){
+  fs.rmdirSync(path.join(__dirname,'./task4/',dFolder));
+  console.log(chalk.green('the change was add to the file'));
+ }
+ }
+
+ // option 6
+ function createFileInFolder(){
+  let cFile = rs.question(chalk.cyan('Enter the name of the file:'));
+  let cFolder = rs.question(chalk.cyan('Enter the name of the folder which the file will be created'));
+
+  if(checkContent(cFolder) == true){
+  fs.writeFile(path.join(__dirname,`task4/${cFolder}`,cFile),'', (err) => {
+    if (err) throw  err = 'was not able to create the file';
+  });  
+  console.log(chalk.green(`${cFile} was create Successfully inside ${cFolder}`));  
+}
+ }
+
+ // option 7
+ function deleteFileFromFolder(){
+  let dFile = rs.question(chalk.cyan('Enter the name of the file:'));
+  let dFolder = rs.question(chalk.cyan('Enter the name of the folder which the file will be delete'));
+ 
+  if (checkContent(dFolder) == true) {
+   fs.unlinkSync(path.join(__dirname,`./task4/${dFolder}`,dFile));
+   console.log(chalk.green(`${dFile} was delete Successfully`)); 
+ }
+  }
+
+ // option 8
+ function mergeFiles() {
+   let info = '';
+  let fFile = rs.question(chalk.cyan('Enter the name of First file:'));
+  let sfile = rs.question(chalk.cyan('Enter the name of Second file (will merge with the first file)'));
+
+  if(checkContent(fFile) == true && checkContent(sfile) == true) {
+    fs.readFile(`./task4/${sfile}`,'utf8', (err,data) => {
+      if (err) throw  err = 'was not able to create the file';
+      fs.appendFile(`./task4/${fFile}`,`\n ${data}`,(err) => {
+        if (err) throw  err = 'was not able to create the file';
+        fs.unlinkSync(path.join(__dirname,'./task4/',sfile));
+      })
+    })
+    console.log(chalk.green('the second file was Successfully merge intu first file'));
+  }
+ }
+
+// the menue
+let exit = 1;
+while(exit > 0){
+console.log(chalk.blue.bold("Welcome to The File system!  Select option from the menue"));
+// naae input
+let userSelect = rs.question(chalk.blue(` 1: Delete file by name
+ 2: Create file by name
+ 3: Edit an existing file
+ 4: Create Folder by name
+ 5: Delete Folder by name
+ 6: Create file inside a Folder
+ 7: Delete file from Folder
+ 8: Merge two files
+ 9: Exit the system\n`));
+//greeting user
+console.log(chalk.yellow(`your choice : ${userSelect}\n`));
+//global varibale to keep account of socre
+switch (userSelect){
+  case('1') :{
+    deleteFileByName();
+
+    break;
+  }
+  case('2') : {
+    createFileByName();
+
+    break;
+  }
+  case('3') : {
+    editFileByName(); 
+
+    break;
+  }
+  case('4') : {
+    createFolderByName();
+
+    break;
+  }
+  case('5') : {
+    deleteFolderByName();
+
+    break;
+  }
+  case('6') : {
+    createFileInFolder();
+
+    break;
+  }
+  case('7') : {
+    deleteFileFromFolder();
+
+    break;
+  }
+  case('8') : {
+    mergeFiles();
+
+    break;
+  }
+  case('9') : {
+    exit = 0;
+  
+    break;
+  }
+
+  default : {
+    console.log(chalk.red('Error! you must select number from 1-9'))
+  }
+}
+}
+
 
 
 
