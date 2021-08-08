@@ -18,7 +18,7 @@ const { loadFont } = require('figlet');
 // // create and write to file (and reed from it)
 // function createFile(numOfFile,amountOfWords){
 //     for(let i = 0; i<numOfFile; i++){
-//         // amountOfWords = amountOfWords * 1;
+//         amountOfWords = amountOfWords * 1;
 //         console.log(amountOfWords);
 //         fs.writeFile(
 //             // add new file + new text
